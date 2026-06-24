@@ -1,0 +1,19 @@
+@use "sass:math";
+
+// base color
+$color-white: #ffffff;
+$color-black: #000000;
+$color-primary: #f0a80e;
+
+// alpha scale
+@function alpha($step) {
+	@if $step >= 0 and $step <= 30 {
+		@return math.div($step, 30);
+	}
+	@warn "alpha step must be between 0 and 30";
+	@return 1;
+}
+
+@function color-alpha($color, $alpha) {
+	@return rgba($color: $color, $alpha: $alpha);
+}
