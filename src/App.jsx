@@ -15,6 +15,7 @@ import ModalRoot from "./components/Modal/ModalRoot";
 import { useModalStore } from "./stores/useModalStore";
 import Button from "./components/Button/Button";
 import Layout from "./components/Layout/Layout";
+import ThemeToggle from "./components/Toggle/Toggle";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -55,6 +56,7 @@ function App() {
 								<Button type="button" variant="btn-secondary" onClick={() => setCount((count) => count + 1)}>
 									Count is {count}
 								</Button>
+								<ThemeToggle/>
 								<Button
 									onClick={() =>
 										openModal({

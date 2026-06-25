@@ -11,7 +11,8 @@ const config = {
     "@storybook/addon-vitest",
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-mcp"
+    "@storybook/addon-mcp",
+    // 'storybook-dark-mode',
   ],
   "framework": "@storybook/react-vite"
 };

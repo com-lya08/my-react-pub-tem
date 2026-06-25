@@ -38,7 +38,7 @@ $font-secondary: "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-
 	}
 }
 
-:root {
+[data-color-mode="light"] {
 	color-scheme: light dark;
 	--color-scheme-rgb: 255, 255, 255;
 	--color-scheme-rvs-rgb: 15, 15, 14;
@@ -54,23 +54,21 @@ $font-secondary: "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-
 	--color-gray-80: #5c5c57;
 	--color-gray-90: #2c2c2a;
 }
-@media (prefers-color-scheme: dark) {
-	:root {
-		color-scheme: dark;
-		--color-scheme-rgb: 40, 40, 40;
-		--color-scheme-rvs-rgb: 255, 255, 255;
-		--color-text: #fff;
-		--color-gray-00: #0f0f0e;
-		--color-gray-10: #161615;
-		--color-gray-20: #1d1d1b;
-		--color-gray-30: #262624;
-		--color-gray-40: #30302e;
-		--color-gray-50: #3f3f3c;
-		--color-gray-60: #5a5a57;
-		--color-gray-70: #7a7a76;
-		--color-gray-80: #a3a39f;
-		--color-gray-90: #e5e5e0;
-	}
+[data-color-mode="dark"] {
+	color-scheme: dark;
+	--color-scheme-rgb: 40, 40, 40;
+	--color-scheme-rvs-rgb: 255, 255, 255;
+	--color-text: #fff;
+	--color-gray-00: #0f0f0e;
+	--color-gray-10: #161615;
+	--color-gray-20: #1d1d1b;
+	--color-gray-30: #262624;
+	--color-gray-40: #30302e;
+	--color-gray-50: #3f3f3c;
+	--color-gray-60: #5a5a57;
+	--color-gray-70: #7a7a76;
+	--color-gray-80: #a3a39f;
+	--color-gray-90: #e5e5e0;
 }
 
 .w-full {

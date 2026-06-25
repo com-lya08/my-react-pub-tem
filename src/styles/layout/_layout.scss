@@ -15,7 +15,10 @@ body {
 	letter-spacing: -0.04em;
 	height: 100%;
 	min-width: 26rem;
+	background-color: rgba(var(--color-scheme-rgb), 1);
 }
+
+.sbdocs-wrapper,.sbdocs-content {background-color: rgba(var(--color-scheme-rgb), 1);}
 
 .skip-link {
 	position: absolute;
