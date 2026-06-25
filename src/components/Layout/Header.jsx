@@ -76,15 +76,13 @@ export default function Header() {
 							<Menu />
 						</ul>
 					</nav>
-					<div className="utils">
-						<button type="button" onClick={handleMenuClick} aria-label={isMobile ? "사이트맵 열기" : "메뉴 열기"}>
-							<span className="menu-icon-btn">
-								<span className="menu-icon-bar"></span>
-								<span className="menu-icon-bar"></span>
-								<span className="menu-icon-bar"></span>
-							</span>
-						</button>
-					</div>
+					<button type="button" onClick={handleMenuClick} aria-label={isMobile ? "사이트맵 열기" : "메뉴 열기"}>
+						<span className="menu-icon-btn">
+							<span className="menu-icon-bar"></span>
+							<span className="menu-icon-bar"></span>
+							<span className="menu-icon-bar"></span>
+						</span>
+					</button>
 				</div>
 			</header>
 			{!isMobile && <div className="header-bg" style={{ height: `${bgHeight}px` }}></div>}
