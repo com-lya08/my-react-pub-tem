@@ -39,7 +39,7 @@ $font-secondary: "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-
 }
 
 [data-color-mode="light"] {
-	color-scheme: light dark;
+	// color-scheme: light dark;
 	--color-scheme-rgb: 255, 255, 255;
 	--color-scheme-rvs-rgb: 15, 15, 14;
 	--color-text: #333;
@@ -55,7 +55,7 @@ $font-secondary: "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-
 	--color-gray-90: #2c2c2a;
 }
 [data-color-mode="dark"] {
-	color-scheme: dark;
+	// color-scheme: dark;
 	--color-scheme-rgb: 40, 40, 40;
 	--color-scheme-rvs-rgb: 255, 255, 255;
 	--color-text: #fff;

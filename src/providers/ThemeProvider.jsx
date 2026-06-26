@@ -1,17 +1,15 @@
-import { useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
+import { ThemeContext } from "./ThemeContext";
 
-const ThemeContext = createContext(null);
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
 
-export function ThemeProvider({ children, theme }) {
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-color-mode",
-      theme
-    );
+    document.documentElement.setAttribute("data-color-mode", theme);
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

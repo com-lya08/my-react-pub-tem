@@ -1,7 +1,6 @@
 /** @type { import('@storybook/react-vite').Preview } */
 import "../src/styles/reset.scss";
 import "../src/styles/style.scss";
-import { ThemeProvider } from "../src/providers/ThemeProvider";
 
 export const globalTypes = {
 	theme: {
@@ -37,11 +36,10 @@ const preview = {
 		theme: "light",
 	},
 	decorators: [
-		(Story, context) => (
-			<ThemeProvider theme={context.globals.theme}>
-				<Story />
-			</ThemeProvider>
-		),
+		(Story, context) => {
+			document.documentElement.setAttribute("data-color-mode", context.globals.theme);
+			return <Story />;
+		},
 	],
 };
 

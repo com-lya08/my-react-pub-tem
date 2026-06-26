@@ -16,10 +16,15 @@ body {
 	height: 100%;
 	min-width: 26rem;
 	background-color: rgba(var(--color-scheme-rgb), 1);
+	color: var(--color-text);
 }
 
-.sbdocs-wrapper,.sbdocs-content {background-color: rgba(var(--color-scheme-rgb), 1);}
-
+.sbdocs,
+.sbdocs-title,
+.sbdocs-content p {
+	background-color: rgba(var(--color-scheme-rgb), 1);
+	color: var(--color-text);
+}
 .skip-link {
 	position: absolute;
 	top: -4rem;
