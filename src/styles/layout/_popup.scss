@@ -14,7 +14,7 @@
 		max-width: 55rem;
 		max-height: calc(100vh - 20rem);
 		border-radius: 2rem;
-		background-color: var(--color-gray-10);
+		background-color: var(--color-gray-20);
 		box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.1);
 	}
 	.popup-wrapper {
@@ -113,7 +113,7 @@
 	// position: fixed;
 	// inset: 0;
 	// height: 200dvh;
-	position: absolute; // safari 하단 주소창 영역 깜빡임(딤드 레이어 변환이 부드럽지 않음) 현상 해결
+	position: fixed; // safari 하단 주소창 영역 깜빡임(딤드 레이어 변환이 부드럽지 않음) 현상 해결
 	top: 0;
 	left: 0;
 	width: 100%;

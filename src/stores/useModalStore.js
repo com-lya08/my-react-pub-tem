@@ -4,17 +4,84 @@ import { create } from "zustand";
 export const useModalStore = create((set, get) => ({
 	modals: [],
 
-	openModal: (modal) =>
+	openAlert: ({ title = "", content = "", confirmText = "확인", onConfirm }) => {
+		const id = crypto.randomUUID();
+
 		set((state) => ({
 			modals: [
 				...state.modals,
 				{
-					id: modal.id || crypto.randomUUID(),
-					title: modal.title,
-					content: modal.content,
+					id,
+					type: "alert",
+					title,
+					content,
+					confirmText,
+					onConfirm,
+					closeOnConfirm: true,
 				},
 			],
-		})),
+		}));
+
+		return id;
+	},
+
+	openConfirm: ({ title = "", content = "", confirmText = "확인", cancelText = "취소", onConfirm, onCancel, closeOnConfirm = false, closeOnCancel = true }) => {
+		const id = crypto.randomUUID();
+
+		set((state) => ({
+			modals: [
+				...state.modals,
+				{
+					id,
+					type: "confirm",
+					title,
+					content,
+					confirmText,
+					cancelText,
+					onConfirm,
+					onCancel,
+					closeOnConfirm,
+					closeOnCancel,
+				},
+			],
+		}));
+
+		return id;
+	},
+
+	openCustom: ({ title = "", content, footer, onConfirm, onCancel }) => {
+		const id = crypto.randomUUID();
+
+		set((state) => ({
+			modals: [
+				...state.modals,
+				{
+					id,
+					type: "custom",
+					title,
+					content,
+					footer,
+					onConfirm,
+					onCancel,
+				},
+			],
+		}));
+
+		return id;
+	},
+
+	runAction: async (id, action) => {
+		const modal = get().modals.find((m) => m.id === id);
+		if (!modal) return;
+
+		await modal[action]?.();
+
+		const shouldClose = action === "onConfirm" ? modal.closeOnConfirm : true;
+
+		if (shouldClose) {
+			get().closeModal(id);
+		}
+	},
 
 	closeModal: (id) =>
 		set((state) => ({
@@ -24,11 +91,7 @@ export const useModalStore = create((set, get) => ({
 	closeTopModal: () => {
 		const modals = get().modals;
 		if (!modals.length) return;
-
-		const top = modals[modals.length - 1];
-		set({
-			modals: modals.filter((m) => m.id !== top.id),
-		});
+		get().closeModal(modals[modals.length - 1].id);
 	},
 
 	clearModals: () => set({ modals: [] }),

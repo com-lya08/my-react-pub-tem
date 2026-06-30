@@ -21,8 +21,8 @@ body {
 
 .sbdocs,
 .sbdocs-title,
-.sbdocs-content p {
-	background-color: rgba(var(--color-scheme-rgb), 1);
+.sbdocs-content {
+	background-color: rgba(var(--color-scheme-rgb), 1) !important;
 	color: var(--color-text);
 }
 .skip-link {

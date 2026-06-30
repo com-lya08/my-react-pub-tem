@@ -22,7 +22,9 @@ function App() {
 	const [user, setUser] = useState(null);
 	const [data, setData] = useState([]);
 	// const [open, setOpen] = useState(false);
-	const openModal = useModalStore((state) => state.openModal);
+	const openAlert = useModalStore((state) => state.openAlert);
+	const openCustom = useModalStore((state) => state.openCustom);
+	const openConfirm = useModalStore((state) => state.openConfirm);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -56,16 +58,66 @@ function App() {
 								<Button type="button" variant="btn-secondary" onClick={() => setCount((count) => count + 1)}>
 									Count is {count}
 								</Button>
-								<ThemeToggle/>
+								<ThemeToggle />
 								<Button
 									onClick={() =>
-										openModal({
+										openAlert({
 											title: "Zustand",
 											content: "Zustand 모달입니다",
+											// children:
 										})
 									}
 								>
 									저장
+								</Button>
+								<Button
+									onClick={() =>
+										openConfirm({
+											title: "Zustand",
+											content: "openConfirm 모달입니다",
+											// children:
+										})
+									}
+								>
+									openConfirm
+								</Button>
+
+								<Button
+									onClick={() =>
+										openCustom({
+											title: "test",
+											content: (
+												<>
+													<h2>so funky!!!!</h2>
+												</>
+											),
+											footer: (
+												<Button
+													variant="btn-secondary"
+													onClick={() =>
+														openConfirm({
+															title: "Zustand",
+															content: "ㅋㅋㅋㅋ 모달입니다",
+															// children:
+															onConfirm: () =>
+																openAlert({
+																	title: "Zustand",
+																	content: "3중 모달입니다",
+																	// onConfirm: ()=> {
+																	// 	closeA
+																	// }
+																}),
+														})
+													}
+												>
+													꺼져
+												</Button>
+											),
+											// children:
+										})
+									}
+								>
+									커스텀 모달
 								</Button>
 
 								<ModalRoot />

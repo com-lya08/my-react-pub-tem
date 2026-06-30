@@ -20,12 +20,13 @@
 	min-height: 3.2rem;
 	padding: 1rem;
 	border-radius: 1rem;
+	font-weight: 600;
 	&.btn-primary {
 		background-color: $color-primary;
 		color: $color-white;
 	}
 	&.btn-secondary {
-		background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+		background-color: rgba(var(--color-scheme-rvs-rgb), alpha(3));
 		color: var(--color-text);
 	}
 	&.btn-line {
@@ -45,7 +46,7 @@
 /** 탭 */
 .tab-btn {
 	@extend .btn;
-	background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+	background-color: rgba(var(--color-scheme-rvs-rgb), alpha(3));
 	min-height: 4.2rem;
 	border-radius: 1rem;
 	transition: background-color 0.2s ease-in-out;
@@ -82,7 +83,7 @@
 /** 드롭다운 */
 .dropdown-btn {
 	@extend .btn;
-	background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+	background-color: rgba(var(--color-scheme-rvs-rgb), alpha(3));
 }
 /** 햅버거 */
 .menu-icon-btn {

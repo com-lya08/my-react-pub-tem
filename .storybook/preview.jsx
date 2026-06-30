@@ -1,6 +1,7 @@
 /** @type { import('@storybook/react-vite').Preview } */
 import "../src/styles/reset.scss";
 import "../src/styles/style.scss";
+import ModalRoot from "../src/components/Modal/ModalRoot";
 
 export const globalTypes = {
 	theme: {
@@ -38,7 +39,12 @@ const preview = {
 	decorators: [
 		(Story, context) => {
 			document.documentElement.setAttribute("data-color-mode", context.globals.theme);
-			return <Story />;
+			return (
+				<>
+					<Story />
+					<ModalRoot />
+				</>
+			);
 		},
 	],
 };
