@@ -12,6 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  base: "/my-react-pub-tem/",
 	plugins: [react(), tailwindcss()],
 	resolve: {
 		alias: {
