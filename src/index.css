@@ -65,6 +65,9 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+
+	position: relative;
+	height: 100%;
 }
 
 h1,

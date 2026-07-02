@@ -17,7 +17,6 @@ export const useModalStore = create((set, get) => ({
 					content,
 					confirmText,
 					onConfirm,
-					closeOnConfirm: true,
 				},
 			],
 		}));
@@ -25,7 +24,7 @@ export const useModalStore = create((set, get) => ({
 		return id;
 	},
 
-	openConfirm: ({ title = "", content = "", confirmText = "확인", cancelText = "취소", onConfirm, onCancel, closeOnConfirm = false, closeOnCancel = true }) => {
+	openConfirm: ({ title = "", content = "", confirmText = "확인", cancelText = "취소", onConfirm, onCancel, closeOnConfirm = false }) => {
 		const id = crypto.randomUUID();
 
 		set((state) => ({
@@ -41,7 +40,6 @@ export const useModalStore = create((set, get) => ({
 					onConfirm,
 					onCancel,
 					closeOnConfirm,
-					closeOnCancel,
 				},
 			],
 		}));
@@ -76,7 +74,7 @@ export const useModalStore = create((set, get) => ({
 
 		await modal[action]?.();
 
-		const shouldClose = action === "onConfirm" ? modal.closeOnConfirm : true;
+		const shouldClose = action === "onConfirm" ? (modal.closeOnConfirm ?? true) : action === "onCancel" ? (modal.closeOnCancel ?? true) : true;
 
 		if (shouldClose) {
 			get().closeModal(id);

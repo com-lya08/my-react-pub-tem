@@ -75,7 +75,10 @@ function App() {
 										openConfirm({
 											title: "Zustand",
 											content: "openConfirm 모달입니다",
-											// children:
+											closeOnConfirm: true,
+											onConfirm: () => {
+												alert("테스트입니다.");
+											},
 										})
 									}
 								>
@@ -91,27 +94,35 @@ function App() {
 													<h2>so funky!!!!</h2>
 												</>
 											),
-											footer: (
-												<Button
-													variant="btn-secondary"
-													onClick={() =>
-														openConfirm({
-															title: "Zustand",
-															content: "ㅋㅋㅋㅋ 모달입니다",
-															// children:
-															onConfirm: () =>
-																openAlert({
-																	title: "Zustand",
-																	content: "3중 모달입니다",
-																	// onConfirm: ()=> {
-																	// 	closeA
-																	// }
-																}),
-														})
-													}
-												>
-													꺼져
-												</Button>
+											footer: ({ id, runAction }) => (
+												<div className="btn-wrap">
+													<Button
+														variant="btn-secondary"
+														onClick={() =>
+															openConfirm({
+																title: "TITLE",
+																content: "ㅋㅋㅋㅋ 모달입니다",
+																// closeOnConfirm: true,
+																// children:
+																onConfirm: () =>
+																	openAlert({
+																		title: "Zustand",
+																		content: "3중 모달입니다",
+																	}),
+															})
+														}
+													>
+														동의함
+													</Button>
+													<Button
+														variant="btn-line"
+														onClick={() => {
+															runAction(id, "onCancel");
+														}}
+													>
+														취소
+													</Button>
+												</div>
 											),
 											// children:
 										})

@@ -5,17 +5,18 @@ import clsx from "clsx";
 import { useModalStore } from "../../stores/useModalStore";
 import Button from "../Button/Button";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 export default function ModalRoot() {
 	const { modals, closeModal, closeTopModal } = useModalStore();
 	const runAction = useModalStore((state) => state.runAction);
-	console.log(useModalStore.getState().modals);
+	// console.log(useModalStore.getState().modals);
 	// console.log(modals);
-
 	const isOpen = modals.length > 0;
 	const topModal = modals[modals.length - 1];
 
-	const modalRef = useRef(null);
-	const prevFocusRef = useRef(null);
+	const modalRefs = useRef({});
+	// const prevFocusRef = useRef(null);
 
 	// 🔥 ESC close (항상 Hook은 최상단)
 	useEffect(() => {
@@ -40,26 +41,44 @@ export default function ModalRoot() {
 		}
 	}, [isOpen]);
 
-	useEffect(() => {
-		if (!modals.length) return;
+	// 포커스 처리
+	const prevTopIdRef = useRef(null);
+	const pageFocusRef = useRef(null);
 
-		// 현재 포커스 저장
-		prevFocusRef.current = document.activeElement;
+	useEffect(() => {
+		if (!topModal) {
+			pageFocusRef.current?.focus?.();
+			return;
+		}
+
+		// 첫 모달이 열릴 때만 페이지 포커스 저장
+		if (!prevTopIdRef.current) {
+			pageFocusRef.current = document.activeElement;
+		}
 
 		requestAnimationFrame(() => {
-			modalRef.current?.focus();
+			modalRefs.current[topModal.id]?.focus();
 		});
 
-		return () => {
-			// 모달 닫힐 때 이전 포커스로 복귀
-			prevFocusRef.current?.focus?.();
-		};
+		prevTopIdRef.current = topModal.id;
+	}, [topModal]);
+
+	useEffect(() => {
+		if (modals.length !== 0) return;
+
+		requestAnimationFrame(() => {
+			pageFocusRef.current?.focus?.();
+		});
+
+		pageFocusRef.current = null;
+		prevTopIdRef.current = null;
 	}, [modals.length]);
 
+	// 모달안 포커스 트랩
 	const handleTabKey = (e) => {
 		if (e.key !== "Tab") return;
 
-		const modal = modalRef.current;
+		const modal = modalRefs.current[topModal.id];
 		if (!modal) return;
 
 		const focusableEls = modal.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])');
@@ -87,18 +106,102 @@ export default function ModalRoot() {
 		}
 	};
 
-	const root = document.getElementById("modal-root") || document.body;
-	if (!root || !isOpen) return null;
 
+	const root = document.getElementById("root") || document.body;
+	// if (!root || !isOpen) return null;
 	const baseZIndex = 1000;
 
 	return createPortal(
 		<>
-			{/* dim (single layer) */}
-			<div className={clsx("layer-dimmed", "show")} style={{ zIndex: baseZIndex + modals.length * 2 - 1 }} onClick={closeTopModal} />
-
 			{/* modals stack */}
-			{modals.map((modal, index) => {
+			<AnimatePresence>
+				{modals.map((modal, index) => {
+					const isTop = modal.id === topModal.id;
+
+					return (
+						<motion.div
+							key={modal.id}
+							role="dialog"
+							aria-modal="true"
+							aria-labelledby={`modal-title-${modal.id}`}
+							tabIndex={-1}
+							ref={(el) => {
+								if (el) {
+									modalRefs.current[modal.id] = el;
+								} else {
+									delete modalRefs.current[modal.id];
+								}
+							}}
+							onKeyDown={isTop ? handleTabKey : undefined}
+							className={clsx("layer-popup", modal.type)}
+							style={{
+								zIndex: baseZIndex + (index + 1) * 2,
+								pointerEvents: isTop ? "auto" : "none",
+							}}
+							initial={{ opacity: 0, translateY: 0 }}
+							animate={{ opacity: 1, translateY: -10 }}
+							exit={{ opacity: 0, translateY: 0 }}
+							transition={{ duration: 0.2 }}
+						>
+							<div className="popup-container">
+								<div className="popup-container">
+									<div className="popup-wrapper">
+										<div className="popup-header">
+											<h2>{modal.title}</h2>
+
+											<Button
+												variant="btn-close"
+												position="abs"
+												onClick={() => {
+													closeModal(modal.id);
+												}}
+											/>
+										</div>
+
+										<div className="popup-body">{modal.content}</div>
+										{modal.footer && (
+											<div className="popup-footer">
+												{typeof modal.footer === "function"
+													? modal.footer({
+															id: modal.id,
+															runAction,
+														})
+													: modal.footer}
+											</div>
+										)}
+										{modal.type === "confirm" && (
+											<div className="popup-footer">
+												<div className="btn-wrap">
+													<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
+														{modal.confirmText}
+													</Button>
+													<Button variant="btn-secondary" onClick={() => runAction(modal.id, "onCancel")}>
+														{modal.cancelText}
+													</Button>
+												</div>
+											</div>
+										)}
+										{modal.type === "alert" && (
+											<div className="popup-footer">
+												<div className="btn-wrap align-right">
+													<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
+														{modal.confirmText}
+													</Button>
+												</div>
+											</div>
+										)}
+									</div>
+								</div>
+							</div>
+						</motion.div>
+					);
+				})}
+			</AnimatePresence>
+
+			{/* dim (single layer) */}
+			<AnimatePresence>{isOpen && <motion.div className="layer-dimmed" style={{ zIndex: baseZIndex + modals.length * 2 - 1 }} onClick={closeTopModal} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} />}</AnimatePresence>
+
+			{/* {modals.map((modal, index) => {
 				const isTop = modal.id === topModal.id;
 
 				return (
@@ -116,57 +219,10 @@ export default function ModalRoot() {
 							pointerEvents: isTop ? "auto" : "none",
 						}}
 					>
-						<div className="popup-container">
-							<div className="popup-wrapper">
-								<div className="popup-header">
-									<h2>{modal.title}</h2>
 
-									<Button
-										variant="btn-close"
-										position="abs"
-										onClick={() => {
-											closeModal(modal.id);
-										}}
-									/>
-								</div>
-
-								<div className="popup-body">{modal.content}</div>
-								{modal.footer && (
-									<div className="popup-footer">
-										{typeof modal.footer === "function"
-											? modal.footer({
-													id: modal.id,
-													runAction,
-												})
-											: modal.footer}
-									</div>
-								)}
-								{modal.type === "confirm" && (
-									<div className="popup-footer">
-										<div className="btn-wrap">
-											<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
-												{modal.confirmText}
-											</Button>
-											<Button variant="btn-secondary" onClick={() => runAction(modal.id, "onCancel")}>
-												{modal.cancelText}
-											</Button>
-										</div>
-									</div>
-								)}
-								{modal.type === "alert" && (
-									<div className="popup-footer">
-										<div className="btn-wrap align-right">
-											<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
-												{modal.confirmText}
-											</Button>
-										</div>
-									</div>
-								)}
-							</div>
-						</div>
 					</div>
 				);
-			})}
+			})} */}
 		</>,
 		root,
 	);
