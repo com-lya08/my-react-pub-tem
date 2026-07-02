@@ -11,8 +11,9 @@
 		"preview": "vite preview",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"predeploy": "npm run build",
-  	"deploy": "gh-pages -d dist"
+		"deploy": "npm run build && gh-pages -d dist -b gh-pages -e .",
+    "deploy:storybook": "npm run build-storybook && gh-pages -d storybook-static -b gh-pages -e storybook"
+
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.3.1",
