@@ -2,21 +2,27 @@ import { useEffect, useState } from "react";
 import { MoHeader } from "./MoHeader";
 import Menu from "./Menu";
 import { useModalStore } from "../../stores/useModalStore";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Header() {
 	const [pcOpen, setPcOpen] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
-	const [isMobile, setIsMobile] = useState(false);
+	// const [isMobile, setIsMobile] = useState(false);
 	const [bgHeight, setBgHeight] = useState(0);
-	const openModal = useModalStore((state) => state.openModal);
-	const clearModals = useModalStore((state) => state.clearModals);
+	const [sitemapModal, setSitemapModal] = useState(null);
+
+	const openCustom = useModalStore((state) => state.openCustom);
+	const closeModal = useModalStore((state) => state.closeModal);
+
+	const isMobile = useMediaQuery("(max-width: 768px)");
 
 	const handleMenuClick = () => {
 		if (!isMobile) {
-			openModal({
+			const modalId = openCustom({
 				title: "꺼져",
 				content: "Zustand 모달입니다",
 			});
+			setSitemapModal(modalId);
 			return;
 		}
 
@@ -47,20 +53,12 @@ export default function Header() {
 	}, [mobileOpen]);
 
 	useEffect(() => {
-		const handleResize = () => {
-			const mobile = window.innerWidth <= 768;
-			setIsMobile(mobile);
-
-			if (!mobile) {
-				setMobileOpen(false);
-			} else {
-				clearModals();
-			}
-		};
-		handleResize();
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, [clearModals]);
+		if (!isMobile) {
+			setMobileOpen(false);
+		} else {
+			closeModal(sitemapModal);
+		}
+	}, [isMobile, closeModal, sitemapModal]);
 
 	return (
 		<>

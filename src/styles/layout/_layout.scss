@@ -19,6 +19,11 @@ body {
 	color: var(--color-text);
 }
 
+#root {
+	position: relative;
+	min-height: 100%;
+}
+
 .sbdocs,
 .sbdocs-title,
 .sbdocs-content {

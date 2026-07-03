@@ -68,6 +68,27 @@ export const useModalStore = create((set, get) => ({
 		return id;
 	},
 
+	openBottomsheet: ({ title = "", content, footer, onConfirm, onCancel }) => {
+		const id = crypto.randomUUID();
+
+		set((state) => ({
+			modals: [
+				...state.modals,
+				{
+					id,
+					type: "bottomsheet",
+					title,
+					content,
+					footer,
+					onConfirm,
+					onCancel,
+				},
+			],
+		}));
+
+		return id;
+	},
+
 	runAction: async (id, action) => {
 		const modal = get().modals.find((m) => m.id === id);
 		if (!modal) return;

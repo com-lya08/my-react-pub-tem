@@ -6,6 +6,7 @@ import { useModalStore } from "../../stores/useModalStore";
 import Button from "../Button/Button";
 
 import { AnimatePresence, motion } from "framer-motion";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function ModalRoot() {
 	const { modals, closeModal, closeTopModal } = useModalStore();
@@ -17,6 +18,8 @@ export default function ModalRoot() {
 
 	const modalRefs = useRef({});
 	// const prevFocusRef = useRef(null);
+
+	const isDesktop = useMediaQuery("(min-width:769px)");
 
 	// 🔥 ESC close (항상 Hook은 최상단)
 	useEffect(() => {
@@ -106,7 +109,6 @@ export default function ModalRoot() {
 		}
 	};
 
-
 	const root = document.getElementById("root") || document.body;
 	// if (!root || !isOpen) return null;
 	const baseZIndex = 1000;
@@ -117,7 +119,14 @@ export default function ModalRoot() {
 			<AnimatePresence>
 				{modals.map((modal, index) => {
 					const isTop = modal.id === topModal.id;
+					const isBottomSheet = modal.type === "bottomsheet" && !isDesktop;
 
+					const animationProps = {
+						initial: { opacity: 0, translateY: isBottomSheet ? "100%" : 0 },
+						animate: { opacity: 1, translateY: isBottomSheet ? 0 : -10 },
+						exit: { opacity: 0, translateY: isBottomSheet ? "100%" : 0 },
+						transition: { duration: 0.2 },
+					};
 					return (
 						<motion.div
 							key={modal.id}
@@ -138,10 +147,7 @@ export default function ModalRoot() {
 								zIndex: baseZIndex + (index + 1) * 2,
 								pointerEvents: isTop ? "auto" : "none",
 							}}
-							initial={{ opacity: 0, translateY: 0 }}
-							animate={{ opacity: 1, translateY: -10 }}
-							exit={{ opacity: 0, translateY: 0 }}
-							transition={{ duration: 0.2 }}
+							{...animationProps}
 						>
 							<div className="popup-container">
 								<div className="popup-container">

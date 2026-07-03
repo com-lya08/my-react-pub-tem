@@ -25,6 +25,7 @@ function App() {
 	const openAlert = useModalStore((state) => state.openAlert);
 	const openCustom = useModalStore((state) => state.openCustom);
 	const openConfirm = useModalStore((state) => state.openConfirm);
+	const openBottomsheet = useModalStore((state) => state.openBottomsheet);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -54,7 +55,7 @@ function App() {
 						</div>
 						<div className="content-body">
 							<section id="center">
-								<h1 className="text-3xl font-bold underline">Hello world!</h1>
+								{/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
 								<Button type="button" variant="btn-secondary" onClick={() => setCount((count) => count + 1)}>
 									Count is {count}
 								</Button>
@@ -105,7 +106,7 @@ function App() {
 																// closeOnConfirm: true,
 																// children:
 																onConfirm: () =>
-																	openAlert({
+																	openBottomsheet({
 																		title: "Zustand",
 																		content: "3중 모달입니다",
 																	}),
