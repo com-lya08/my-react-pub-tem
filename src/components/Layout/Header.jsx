@@ -51,8 +51,8 @@ export default function Header() {
 
 	// body scroll lock
 	useEffect(() => {
-		document.body.classList.toggle("is-modal-open", mobileOpen && isMobile);
-	}, [mobileOpen, isMobile]);
+		document.body.classList.toggle("is-modal-open", mobileOpen);
+	}, [mobileOpen]);
 
 	return (
 		<>
