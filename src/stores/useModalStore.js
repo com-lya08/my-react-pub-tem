@@ -47,7 +47,7 @@ export const useModalStore = create((set, get) => ({
 		return id;
 	},
 
-	openCustom: ({ title = "", content, footer, onConfirm, onCancel }) => {
+	openCustom: ({ title = "", content, footer, onConfirm, onCancel, isNav = false }) => {
 		const id = crypto.randomUUID();
 
 		set((state) => ({
@@ -61,6 +61,7 @@ export const useModalStore = create((set, get) => ({
 					footer,
 					onConfirm,
 					onCancel,
+					isNav,
 				},
 			],
 		}));

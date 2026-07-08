@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { MoHeader } from "./MoHeader";
 import Menu from "./Menu";
 import { useModalStore } from "../../stores/useModalStore";
@@ -7,26 +7,28 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 export default function Header() {
 	const [pcOpen, setPcOpen] = useState(false);
 	const [mobileOpen, setMobileOpen] = useState(false);
-	// const [isMobile, setIsMobile] = useState(false);
+
 	const [bgHeight, setBgHeight] = useState(0);
-	const [sitemapModal, setSitemapModal] = useState(null);
 
 	const openCustom = useModalStore((state) => state.openCustom);
 	const closeModal = useModalStore((state) => state.closeModal);
 
 	const isMobile = useMediaQuery("(max-width: 768px)");
 
-	const handleMenuClick = () => {
-		if (!isMobile) {
-			const modalId = openCustom({
-				title: "꺼져",
-				content: "Zustand 모달입니다",
-			});
-			setSitemapModal(modalId);
-			return;
-		}
+	const sitemapId = useRef(null);
 
+	const handleMenuClick = () => {
 		setMobileOpen(true);
+		sitemapId.current = openCustom({
+			title: "사이트 맵",
+			content: (
+				<ul className="sitemap">
+					<Menu />
+				</ul>
+			),
+			isNav: true,
+			onCancel: () => setMobileOpen(false),
+		});
 	};
 
 	const handleMouseEnter = () => {
@@ -49,16 +51,8 @@ export default function Header() {
 
 	// body scroll lock
 	useEffect(() => {
-		document.body.classList.toggle("is-modal-open", mobileOpen);
-	}, [mobileOpen]);
-
-	useEffect(() => {
-		if (!isMobile) {
-			setMobileOpen(false);
-		} else {
-			closeModal(sitemapModal);
-		}
-	}, [isMobile, closeModal, sitemapModal]);
+		document.body.classList.toggle("is-modal-open", mobileOpen && isMobile);
+	}, [mobileOpen, isMobile]);
 
 	return (
 		<>
@@ -84,7 +78,15 @@ export default function Header() {
 				</div>
 			</header>
 			{!isMobile && <div className="header-bg" style={{ height: `${bgHeight}px` }}></div>}
-			{isMobile && <MoHeader mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />}
+			{isMobile && (
+				<MoHeader
+					mobileOpen={mobileOpen}
+					onClose={() => {
+						setMobileOpen(false);
+						closeModal(sitemapId.current);
+					}}
+				/>
+			)}
 		</>
 	);
 }

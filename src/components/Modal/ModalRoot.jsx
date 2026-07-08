@@ -9,17 +9,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function ModalRoot() {
-	const { modals, closeModal, closeTopModal } = useModalStore();
+	const { modals, closeTopModal } = useModalStore();
 	const runAction = useModalStore((state) => state.runAction);
-	// console.log(useModalStore.getState().modals);
-	// console.log(modals);
 	const isOpen = modals.length > 0;
 	const topModal = modals[modals.length - 1];
 
 	const modalRefs = useRef({});
 	// const prevFocusRef = useRef(null);
 
-	const isDesktop = useMediaQuery("(min-width:769px)");
+	const isMobile = useMediaQuery("(max-width:768px)");
+
 
 	// 🔥 ESC close (항상 Hook은 최상단)
 	useEffect(() => {
@@ -33,7 +32,7 @@ export default function ModalRoot() {
 
 		window.addEventListener("keydown", onKeyDown);
 		return () => window.removeEventListener("keydown", onKeyDown);
-	}, [isOpen, closeTopModal]);
+	}, [isOpen, closeTopModal, modals, topModal]);
 
 	// 🔥 scroll lock
 	useEffect(() => {
@@ -119,93 +118,93 @@ export default function ModalRoot() {
 			<AnimatePresence>
 				{modals.map((modal, index) => {
 					const isTop = modal.id === topModal.id;
-					const isBottomSheet = modal.type === "bottomsheet" && !isDesktop;
+					const isBottomSheet = modal.type === "bottomsheet" && isMobile;
 
 					const animationProps = {
 						initial: { opacity: 0, translateY: isBottomSheet ? "100%" : 0 },
-						animate: { opacity: 1, translateY: isBottomSheet ? 0 : -10 },
+						animate: { opacity: 1, translateY: isBottomSheet ? 0 : -5 },
 						exit: { opacity: 0, translateY: isBottomSheet ? "100%" : 0 },
-						transition: { duration: 0.2 },
+						transition: { duration: 0.1 },
 					};
 					return (
-						<motion.div
-							key={modal.id}
-							role="dialog"
-							aria-modal="true"
-							aria-labelledby={`modal-title-${modal.id}`}
-							tabIndex={-1}
-							ref={(el) => {
-								if (el) {
-									modalRefs.current[modal.id] = el;
-								} else {
-									delete modalRefs.current[modal.id];
-								}
-							}}
-							onKeyDown={isTop ? handleTabKey : undefined}
-							className={clsx("layer-popup", modal.type)}
-							style={{
-								zIndex: baseZIndex + (index + 1) * 2,
-								pointerEvents: isTop ? "auto" : "none",
-							}}
-							{...animationProps}
-						>
-							<div className="popup-container">
+						(!modal.isNav || !isMobile) && (
+							<motion.div
+								key={modal.id}
+								role="dialog"
+								aria-modal="true"
+								aria-labelledby={`modal-title-${modal.id}`}
+								tabIndex={-1}
+								ref={(el) => {
+									if (el) {
+										modalRefs.current[modal.id] = el;
+									} else {
+										delete modalRefs.current[modal.id];
+									}
+								}}
+								onKeyDown={isTop ? handleTabKey : undefined}
+								className={clsx("layer-popup", modal.type)}
+								style={{
+									zIndex: baseZIndex + (index + 1) * 2,
+									pointerEvents: isTop ? "auto" : "none",
+								}}
+								{...animationProps}
+							>
 								<div className="popup-container">
-									<div className="popup-wrapper">
-										<div className="popup-header">
-											<h2>{modal.title}</h2>
+									<div className="popup-container">
+										<div className="popup-wrapper">
+											<div className="popup-header">
+												<h2>{modal.title}</h2>
 
-											<Button
-												variant="btn-close"
-												position="abs"
-												onClick={() => {
-													closeModal(modal.id);
-												}}
-											/>
+												<Button
+													variant="btn-close"
+													position="abs"
+													onClick={() => runAction(modal.id, "onCancel")}
+												/>
+											</div>
+
+											<div className="popup-body">{modal.content}</div>
+											{modal.footer && (
+												<div className="popup-footer">
+													{typeof modal.footer === "function"
+														? modal.footer({
+																id: modal.id,
+																runAction,
+															})
+														: modal.footer}
+												</div>
+											)}
+											{modal.type === "confirm" && (
+												<div className="popup-footer">
+													<div className="btn-wrap">
+														<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
+															{modal.confirmText}
+														</Button>
+														<Button variant="btn-secondary" onClick={() => runAction(modal.id, "onCancel")}>
+															{modal.cancelText}
+														</Button>
+													</div>
+												</div>
+											)}
+											{modal.type === "alert" && (
+												<div className="popup-footer">
+													<div className="btn-wrap align-right">
+														<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
+															{modal.confirmText}
+														</Button>
+													</div>
+												</div>
+											)}
 										</div>
-
-										<div className="popup-body">{modal.content}</div>
-										{modal.footer && (
-											<div className="popup-footer">
-												{typeof modal.footer === "function"
-													? modal.footer({
-															id: modal.id,
-															runAction,
-														})
-													: modal.footer}
-											</div>
-										)}
-										{modal.type === "confirm" && (
-											<div className="popup-footer">
-												<div className="btn-wrap">
-													<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
-														{modal.confirmText}
-													</Button>
-													<Button variant="btn-secondary" onClick={() => runAction(modal.id, "onCancel")}>
-														{modal.cancelText}
-													</Button>
-												</div>
-											</div>
-										)}
-										{modal.type === "alert" && (
-											<div className="popup-footer">
-												<div className="btn-wrap align-right">
-													<Button variant="btn-primary" onClick={() => runAction(modal.id, "onConfirm")}>
-														{modal.confirmText}
-													</Button>
-												</div>
-											</div>
-										)}
 									</div>
 								</div>
-							</div>
-						</motion.div>
+							</motion.div>
+						)
 					);
 				})}
 			</AnimatePresence>
 
 			{/* dim (single layer) */}
-			<AnimatePresence>{isOpen && <motion.div className="layer-dimmed" style={{ zIndex: baseZIndex + modals.length * 2 - 1 }} onClick={closeTopModal} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} />}</AnimatePresence>
+			<AnimatePresence>{isOpen && (!topModal.isNav || !isMobile) && <motion.div className="layer-dimmed" style={{ zIndex: baseZIndex + modals.length * 2 - 1 }} onClick={closeTopModal} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} />}</AnimatePresence>
 
 			{/* {modals.map((modal, index) => {
 				const isTop = modal.id === topModal.id;
