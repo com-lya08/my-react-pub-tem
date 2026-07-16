@@ -16,6 +16,7 @@ import { useModalStore } from "./stores/useModalStore";
 import Button from "./components/Button/Button";
 import Layout from "./components/Layout/Layout";
 import ThemeToggle from "./components/Toggle/Toggle";
+import Tab from "./components/Tab/Tab";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -44,6 +45,24 @@ function App() {
 		getUser();
 		getData();
 	}, []);
+
+	const tabs = [
+		{
+			name: "링크 탭",
+			tag: "a",
+			content: "",
+		},
+		{
+			name: "버튼 탭1",
+			tag: "button",
+			content: "이건 탭 내용이다....",
+		},
+		{
+			name: "버튼 탭2",
+			tag: "button",
+			content: "이건 탭 내용이다....!!!!!!!!!!!!!!!!",
+		},
+	];
 
 	return (
 		<>
@@ -142,6 +161,9 @@ function App() {
 										<dd>{dt.desc}</dd>
 									</dl>
 								))}
+							</section>
+							<section>
+								<Tab tabs={tabs} />
 							</section>
 						</div>
 					</div>

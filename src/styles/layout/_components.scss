@@ -13,12 +13,12 @@
 		padding: 1.2rem;
 		border-radius: 1rem;
 	}
-	[role="tabpanel"] {
-		@include fade-hidden();
-		&.show {
-			@include fade-show();
-		}
-	}
+	// [role="tabpanel"] {
+	// 	@include fade-hidden();
+	// 	&.show {
+	// 		@include fade-show();
+	// 	}
+	// }
 }
 
 /* accordion */
