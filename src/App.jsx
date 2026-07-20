@@ -50,7 +50,8 @@ function App() {
 		{
 			name: "링크 탭",
 			tag: "a",
-			content: "",
+			url: "https://www.naver.com",
+			target: "_blank",
 		},
 		{
 			name: "버튼 탭1",
@@ -73,98 +74,115 @@ function App() {
 							<h2 className="title-md">template</h2>
 						</div>
 						<div className="content-body">
-							<section id="center">
-								{/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
-								<Button type="button" variant="btn-secondary" onClick={() => setCount((count) => count + 1)}>
-									Count is {count}
-								</Button>
-								<ThemeToggle />
-								<Button
-									onClick={() =>
-										openAlert({
-											title: "Zustand",
-											content: "Zustand 모달입니다",
-											// children:
-										})
-									}
-								>
-									저장
-								</Button>
-								<Button
-									onClick={() =>
-										openConfirm({
-											title: "Zustand",
-											content: "openConfirm 모달입니다",
-											closeOnConfirm: true,
-											onConfirm: () => {
-												alert("테스트입니다.");
-											},
-										})
-									}
-								>
-									openConfirm
-								</Button>
-
-								<Button
-									onClick={() =>
-										openCustom({
-											title: "test",
-											content: (
-												<>
-													<h2>so funky!!!!</h2>
-												</>
-											),
-											footer: ({ id, runAction }) => (
-												<div className="btn-wrap">
-													<Button
-														variant="btn-secondary"
-														onClick={() =>
-															openConfirm({
-																title: "TITLE",
-																content: "ㅋㅋㅋㅋ 모달입니다",
-																// closeOnConfirm: true,
-																// children:
-																onConfirm: () =>
-																	openBottomsheet({
-																		title: "Zustand",
-																		content: "3중 모달입니다",
-																	}),
-															})
-														}
-													>
-														동의함
-													</Button>
-													<Button
-														variant="btn-line"
-														onClick={() => {
-															runAction(id, "onCancel");
-														}}
-													>
-														취소
-													</Button>
-												</div>
-											),
-											// children:
-										})
-									}
-								>
-									커스텀 모달
-								</Button>
-
-								<ModalRoot />
-
-								<h2> {user ? user.name : "loading..."}</h2>
-
-								{data.map((dt) => (
-									<dl key={dt._id} className="list">
-										<dt>{dt.title.ico}</dt>
-										<dd>{dt.desc}</dd>
-									</dl>
-								))}
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">탭</h3>
+								</div>
+								<div className="sec-body">
+									<Tab tabs={tabs} />
+								</div>
 							</section>
-							<section>
-								<Tab tabs={tabs} />
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">data fetch</h3>
+								</div>
+								<div className="sec-body">
+									<h2> {user ? user.name : "loading..."}</h2>
+
+									{data.map((dt) => (
+										<dl key={dt._id} className="list">
+											<dt>{dt.title.ico}</dt>
+											<dd>{dt.desc}</dd>
+										</dl>
+									))}
+								</div>
 							</section>
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">버튼</h3>
+								</div>
+								<div className="sec-body">
+									<div className="btn-wrap align-left">
+										<Button type="button" variant="btn-secondary" onClick={() => setCount((count) => count + 1)}>
+											Count is {count}
+										</Button>
+										<ThemeToggle />
+										<Button
+											onClick={() =>
+												openAlert({
+													title: "Zustand",
+													content: "Zustand 모달입니다",
+													// children:
+												})
+											}
+										>
+											저장
+										</Button>
+										<Button
+											onClick={() =>
+												openConfirm({
+													title: "Zustand",
+													content: "openConfirm 모달입니다",
+													closeOnConfirm: true,
+													onConfirm: () => {
+														alert("테스트입니다.");
+													},
+												})
+											}
+										>
+											openConfirm
+										</Button>
+
+										<Button
+											onClick={() =>
+												openCustom({
+													title: "test",
+													content: (
+														<>
+															<h2>so funky!!!!</h2>
+														</>
+													),
+													footer: ({ id, runAction }) => (
+														<div className="btn-wrap">
+															<Button
+																variant="btn-secondary"
+																onClick={() =>
+																	openConfirm({
+																		title: "TITLE",
+																		content: "ㅋㅋㅋㅋ 모달입니다",
+																		// closeOnConfirm: true,
+																		// children:
+																		onConfirm: () =>
+																			openBottomsheet({
+																				title: "Zustand",
+																				content: "3중 모달입니다",
+																			}),
+																	})
+																}
+															>
+																동의함
+															</Button>
+															<Button
+																variant="btn-line"
+																onClick={() => {
+																	runAction(id, "onCancel");
+																}}
+															>
+																취소
+															</Button>
+														</div>
+													),
+													// children:
+												})
+											}
+										>
+											커스텀 모달
+										</Button>
+									</div>
+								</div>
+							</section>
+
+							<ModalRoot />
 						</div>
 					</div>
 				</main>

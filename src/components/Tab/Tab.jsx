@@ -15,7 +15,7 @@ export default function Tab({ tabs }) {
 							{tab.name}
 						</Button>
 					) : (
-						<a key={tab.name} href={tab.href ?? "#"} className="tab-btn">
+						<a key={tab.name} href={tab.url ?? "#"} target={tab.target ?? "_self"} className="tab-btn">
 							{tab.name}
 						</a>
 					);
