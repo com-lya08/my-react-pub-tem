@@ -17,6 +17,8 @@ import Button from "./components/Button/Button";
 import Layout from "./components/Layout/Layout";
 import ThemeToggle from "./components/Toggle/Toggle";
 import Tab from "./components/Tab/Tab";
+import Accordion from "./components/Accordion/Accordion";
+import DropdownList from "./components/Dropdown/DropdownList";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -64,6 +66,33 @@ function App() {
 			content: "이건 탭 내용이다....!!!!!!!!!!!!!!!!",
 		},
 	];
+	const accordions = [
+		{
+			title: "아코딘언ㄴㄴㄴㄴㄴ",
+			content: "content",
+		},
+		{
+			title: "아코딘언dddddddddd",
+			content: "content2content2content2content2content2content2content2content2content2",
+		},
+		{
+			title: "아코딘언ㄴㄴㄴㄴㄴ",
+			content: "content3",
+		},
+	];
+
+	const dropdowns = [
+		{
+			id: "dropdowm01",
+			title: "item1",
+			lists: [{ name: "item111", url: "#" }],
+		},
+		{
+			id: "dropdowm02",
+			title: "item2",
+			lists: [{ name: "item111" }, { name: "item111" }, { name: "item111" }, { name: "item111" }],
+		},
+	];
 
 	return (
 		<>
@@ -80,6 +109,22 @@ function App() {
 								</div>
 								<div className="sec-body">
 									<Tab tabs={tabs} />
+								</div>
+							</section>
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">아코디언</h3>
+								</div>
+								<div className="sec-body">
+									<Accordion accordions={accordions} multi={false} />
+								</div>
+							</section>
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">드롭다운</h3>
+								</div>
+								<div className="sec-body">
+									<DropdownList dropdowns={dropdowns} multi={true} />
 								</div>
 							</section>
 							<section className="section">
@@ -154,8 +199,20 @@ function App() {
 																		// children:
 																		onConfirm: () =>
 																			openBottomsheet({
-																				title: "Zustand",
-																				content: "3중 모달입니다",
+																				title: "BottomSheet",
+																				content: "3중 모달입니다.",
+																				footer: ({ id, runAction }) => (
+																					<div className="btn-wrap">
+																						<Button
+																							variant="btn-line"
+																							onClick={() => {
+																								runAction(id, "onCancel");
+																							}}
+																						>
+																							닫기
+																						</Button>
+																					</div>
+																				),
 																			}),
 																	})
 																}

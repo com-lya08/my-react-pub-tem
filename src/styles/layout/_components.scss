@@ -29,22 +29,13 @@
 		}
 	}
 	.acc-panel {
-		margin-top: 1.2rem;
-		background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
-		padding: 1.2rem;
-		border-radius: 1rem;
-		max-height: 50rem;
-		overflow-y: auto;
-		visibility: hidden;
-		transform: translateY(0.4rem);
-		transition:
-			transform 0.2s ease,
-			visibility 0.2s ease;
-		// @include fade-hidden(); // jquery slide랑 충돌
-		&.show {
-			// @include fade-show();
-			visibility: visible;
-			transform: translateY(0);
+		overflow: hidden;
+		.panel-inner {
+			margin-top: 1.2rem;
+			background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+			padding: 1.2rem;
+			border-radius: 1rem;
+			overflow-y: auto;
 		}
 	}
 }
@@ -65,13 +56,13 @@
 			min-width: 100%;
 			// max-width: 100%;
 			border-radius: 1rem;
-			max-height: none;
-			@include hidden();
-			&.show {
-				@include show();
-				max-height: 20rem;
-				overflow-y: auto;
-			}
+			// max-height: none;
+			// @include hidden();
+			// &.show {
+			// 	@include show();
+			// 	max-height: 20rem;
+			// 	overflow-y: auto;
+			// }
 			li {
 				padding: 0.8rem 1.2rem;
 			}
