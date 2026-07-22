@@ -22,7 +22,7 @@ export default function Dropdown({ dropdowm, expanded, onToggle }) {
 							{dropdowm.lists.map((list, index) => (
 								<li key={index}>
 									{list.url ? (
-										<a href={list.url} target={list.target || "_self"} rel={list.target === "_blank" ? "noopener noreferrer" : ""}>
+										<a href={list.url} target={list.target || "_self"} aria-label={list.target == "_blank" ? "새창열림" : ""}>
 											{list.name}
 										</a>
 									) : (

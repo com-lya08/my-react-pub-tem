@@ -1,16 +1,14 @@
 import { useTheme } from "../../providers/useTheme";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <Button
-      onClick={() =>
+    <input type="checkbox" checked={theme === "dark"} className="switch"
+      onChange={() =>
         setTheme(theme === "dark" ? "light" : "dark")
       }
-    >
-      Toggle
-    </Button>
+      />
   );
 }

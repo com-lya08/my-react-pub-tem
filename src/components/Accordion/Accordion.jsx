@@ -20,7 +20,7 @@ export default function Accordion({ accordions, multi }) {
 
 				return (
 					<div key={index} className="accordion-item">
-						<button className={`acc-btn ${active ? "active" : ""}`} aria-expanded={active} aria-label={`${accordion.title} ${active ? "접기" : "펼치기"}`} onClick={() => handleClick(index)}>
+						<button className={`acc-btn ${active ? "active" : ""}`} aria-expanded={active} aria-label={active ? "접기" : "펼치기"} onClick={() => handleClick(index)}>
 							{accordion.title}
 						</button>
 
