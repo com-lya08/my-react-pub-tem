@@ -8,11 +8,16 @@
 		flex-wrap: wrap;
 	}
 	.tab-content {
-		margin-top: 1.2rem;
 		// background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+		// transition: all 0.4s;
+		overflow: hidden;
+	}
+	.panel-inner{
+		margin-top: 1.2rem;
 		padding: 1.2rem;
 		border-radius: 1rem;
-	}
+		// transition: all 0.4s;
+	 }
 	// [role="tabpanel"] {
 	// 	@include fade-hidden();
 	// 	&.show {
@@ -51,10 +56,11 @@
 		.dropdown-list {
 			position: absolute;
 			z-index: 1;
+			overflow: hidden;
 			background-color: var(--color-gray-10);
 			border: 1px solid var(--color-gray-20);
 			min-width: 100%;
-			// max-width: 100%;
+			max-width: 18rem;
 			border-radius: 1rem;
 			// max-height: none;
 			// @include hidden();
@@ -63,8 +69,10 @@
 			// 	max-height: 20rem;
 			// 	overflow-y: auto;
 			// }
-			li {
+			li > * {
 				padding: 0.8rem 1.2rem;
+				display: block;
+				width: 100%;
 			}
 		}
 	}

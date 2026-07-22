@@ -39,7 +39,8 @@
 	&.h-56 {
 		height: 5.6rem;
 	}
-	&.disabled, &[disabled] {
+	&.disabled,
+	&[disabled] {
 		opacity: 0.6;
 	}
 }
@@ -53,9 +54,9 @@
 	&:hover,
 	&.active {
 		background-color: rgba($color-primary, alpha(5));
-		color: $color-primary;
 	}
 	&.active {
+		color: $color-primary;
 		font-weight: 600;
 	}
 }
@@ -82,7 +83,10 @@
 }
 /** 드롭다운 */
 .dropdown-btn {
-	@extend .btn;
+	@extend .acc-btn;
+	&::after {
+		@include arrow-icon(45deg, 0.8);
+	}
 	background-color: rgba(var(--color-scheme-rvs-rgb), alpha(3));
 }
 /** 햅버거 */

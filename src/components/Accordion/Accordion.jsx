@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Accordion({ accordions, multi }) {
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(null);
 	const [activeIndexes, setActiveIndexes] = useState([]);
 
 	const handleClick = (index) => {
@@ -20,7 +20,7 @@ export default function Accordion({ accordions, multi }) {
 
 				return (
 					<div key={index} className="accordion-item">
-						<button className={`acc-btn ${active ? "active" : ""}`} aria-expanded={active} onClick={() => handleClick(index)}>
+						<button className={`acc-btn ${active ? "active" : ""}`} aria-expanded={active} aria-label={`${accordion.title} ${active ? "접기" : "펼치기"}`} onClick={() => handleClick(index)}>
 							{accordion.title}
 						</button>
 

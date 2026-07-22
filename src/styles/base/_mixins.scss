@@ -115,9 +115,9 @@
 	transform: scaleY(1);
 }
 
-@mixin arrow-icon($deg) {
-	width: 1rem; /* 화살표 길이 */
-	height: 1rem; /* 화살표 높이 */
+@mixin arrow-icon($deg, $size:1) {
+	width: calc(1rem * $size); /* 화살표 길이 */
+	height: calc(1rem * $size); /* 화살표 높이 */
 	border-left-width: 0px;
 	border-top-width: 0px;
 	border-right-width: 2px;

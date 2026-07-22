@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import Button from "../Button/Button";
+import { motion } from "framer-motion";
 
 export default function Tab({ tabs }) {
 	const [activeIndex, setActiveIndex] = useState(0);
+
+	const contentRef = useRef(null);
+	const [height, setHeight] = useState("auto");
+
+	useLayoutEffect(() => {
+		if (!contentRef.current) return;
+
+		const nextHeight = contentRef.current.scrollHeight;
+		setHeight(nextHeight);
+	}, [activeIndex]);
 
 	return (
 		<div className="tab-wrap">
@@ -22,11 +33,27 @@ export default function Tab({ tabs }) {
 				})}
 			</div>
 
-			<div className="tab-content">
+			<motion.div
+				animate={{ height }}
+				transition={{ duration: 0.35, ease: "easeInOut" }}
+				className="tab-content"
+			>
 				<div id={`panel-${activeIndex}`} role="tabpanel" aria-labelledby={`tab-${activeIndex}`}>
-					<div className="panel-inner">{tabs[activeIndex].content}</div>
+					<motion.div
+						className="panel-inner"
+						key={activeIndex}
+						ref={contentRef}
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1 , y: 0}}
+						exit={{ opacity: 0, y: 10 }}
+						transition={{
+							duration: 0.35,
+						}}
+					>
+						{tabs[activeIndex].content}
+					</motion.div>
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 }
