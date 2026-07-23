@@ -9,10 +9,20 @@ export default function Tab({ tabs }) {
 	const [height, setHeight] = useState("auto");
 
 	useLayoutEffect(() => {
-		if (!contentRef.current) return;
+		const element = contentRef.current;
 
-		const nextHeight = contentRef.current.scrollHeight;
-		setHeight(nextHeight);
+		if (!element) return;
+
+		const updateHeight = () => {
+			setHeight(element.scrollHeight);
+		};
+
+		updateHeight();
+
+		const observer = new ResizeObserver(updateHeight); // 컨텐츠 길이 변화 감지
+		observer.observe(element);
+
+		return () => observer.disconnect();
 	}, [activeIndex]);
 
 	return (

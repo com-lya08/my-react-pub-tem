@@ -44,11 +44,6 @@ body {
 		top: 0;
 	}
 }
-
-.visual-hidden {
-	@include sr-only();
-}
-
 .is-modal-open {
 	overflow: hidden;
 	touch-action: none;
@@ -99,6 +94,17 @@ body {
 
 .main {
 	background-color: rgba(var(--color-scheme-rgb), 1);
+}
+
+.flex {
+	@include flex-center();
+	gap: 1.2rem;
+	&.flex-start {
+		justify-content: flex-start;
+	}
+	&.flex-end {
+		justify-content: flex-end;
+	}
 }
 
 /* section */

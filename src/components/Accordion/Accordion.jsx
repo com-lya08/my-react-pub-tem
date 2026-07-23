@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-export default function Accordion({ accordions, multi }) {
+export default function Accordion({ accordions, type }) {
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [activeIndexes, setActiveIndexes] = useState([]);
+	const isMulti = type === "multi";
 
 	const handleClick = (index) => {
-		if (multi) {
+		if (isMulti) {
 			setActiveIndexes((prev) => (prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]));
 		} else {
 			setActiveIndex((prev) => (prev === index ? -1 : index));
 		}
 	};
-
 	return (
-		<div className={`ui-accordion ${multi ? "multi" : ""}`}>
+		<div className={`ui-accordion ${isMulti ? "multi" : ""}`}>
 			{accordions.map((accordion, index) => {
-				const active = multi ? activeIndexes.includes(index) : activeIndex === index;
+				const active = isMulti ? activeIndexes.includes(index) : activeIndex === index;
 
 				return (
 					<div key={index} className="accordion-item">

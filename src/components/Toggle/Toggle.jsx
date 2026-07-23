@@ -1,14 +1,13 @@
-import { useTheme } from "../../providers/useTheme";
-// import Button from "../Button/Button";
+import { forwardRef } from "react";
 
-export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+const Toggle = forwardRef(({ className = "", srOnly = false, children, ...props }, ref) => {
 
-  return (
-    <input type="checkbox" checked={theme === "dark"} className="switch"
-      onChange={() =>
-        setTheme(theme === "dark" ? "light" : "dark")
-      }
-      />
-  );
-}
+	return (
+		<label className={`form-switch ${className}`}>
+			<input ref={ref} type="checkbox" {...props} />
+			{children && <span className={srOnly ? "visual-hidden" : ""}>{children}</span>}
+		</label>
+	);
+});
+
+export default Toggle;

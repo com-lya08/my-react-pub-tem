@@ -15,10 +15,13 @@ import ModalRoot from "./components/Modal/ModalRoot";
 import { useModalStore } from "./stores/useModalStore";
 import Button from "./components/Button/Button";
 import Layout from "./components/Layout/Layout";
-import ThemeToggle from "./components/Toggle/Toggle";
+import ThemeToggle from "./components/Toggle/ThemeToggle";
 import Tab from "./components/Tab/Tab";
 import Accordion from "./components/Accordion/Accordion";
 import DropdownList from "./components/Dropdown/DropdownList";
+import Checkbox from "./components/ControlBox/CheckBox";
+import RadioBox from "./components/ControlBox/RadioBox";
+import FontSizeSetRadioBox from "./components/ControlBox/FontSizeSetRadioBox";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -122,7 +125,7 @@ function App() {
 									<h3 className="title-sm font-secondary">아코디언</h3>
 								</div>
 								<div className="sec-body">
-									<Accordion accordions={accordions} multi={false} />
+									<Accordion accordions={accordions} type="multi" />
 								</div>
 							</section>
 							<section className="section">
@@ -130,7 +133,7 @@ function App() {
 									<h3 className="title-sm font-secondary">드롭다운</h3>
 								</div>
 								<div className="sec-body">
-									<DropdownList dropdowns={dropdowns} multi={false} />
+									<DropdownList dropdowns={dropdowns} type="single" />
 								</div>
 							</section>
 							<section className="section">
@@ -249,7 +252,42 @@ function App() {
 									<h3 className="title-sm font-secondary">스위치</h3>
 								</div>
 								<div className="sec-body">
-									<ThemeToggle />
+									<ThemeToggle title="다크모드 선택" name="themeToggle" id="themeToggle" srOnly={true}>
+										다크모드
+									</ThemeToggle>
+								</div>
+							</section>
+
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">체크박스</h3>
+								</div>
+								<div className="sec-body">
+									<div className="flex flex-start">
+									<Checkbox title="checkbox test1" name="checkbox01" id="checkbox01">checkbox test1</Checkbox>
+									<Checkbox title="checkbox test3" className="size-lg" name="checkbox03" id="checkbox03">checkbox test3</Checkbox>
+									</div>
+								</div>
+							</section>
+
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">라디오박스</h3>
+								</div>
+								<div className="sec-body">
+									<div className="flex flex-start">
+									<RadioBox title="radiobox test1" name="radiobox" id="radiobox01">radio test1</RadioBox>
+									<RadioBox title="radiobox test3" className="size-lg" name="radiobox" id="checkbox03">radio test3</RadioBox>
+									</div>
+								</div>
+							</section>
+
+								<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">글씨설정</h3>
+								</div>
+								<div className="sec-body">
+									<FontSizeSetRadioBox/>
 								</div>
 							</section>
 

@@ -12,12 +12,12 @@
 		// transition: all 0.4s;
 		overflow: hidden;
 	}
-	.panel-inner{
+	.panel-inner {
 		margin-top: 1.2rem;
 		padding: 1.2rem;
 		border-radius: 1rem;
 		// transition: all 0.4s;
-	 }
+	}
 	// [role="tabpanel"] {
 	// 	@include fade-hidden();
 	// 	&.show {
@@ -69,49 +69,19 @@
 			// 	max-height: 20rem;
 			// 	overflow-y: auto;
 			// }
-			li > * {
-				padding: 0.8rem 1.2rem;
-				display: block;
-				width: 100%;
+			li {
+				padding: 4px;
+				> * {
+					padding: 0.8rem 1rem;
+					display: block;
+					width: 100%;
+					border-radius: 4px;
+				}
+				a:hover {
+					background-color: rgba($color-primary, alpha(5));
+				}
 			}
 		}
 	}
-}
-
-input[type=checkbox].switch {
-  appearance: none;
-  width: 48px;
-  height: 26px;
-  background: #d1d5db;
-  border-radius: 999px;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.25s ease;
-
-  &::before {
-    content: "";
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 50%;
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    transition: transform 0.25s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-
-  &:checked {
-    background: #2563eb;
-
-    &::before {
-      transform: translateX(22px);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid #60a5fa;
-    outline-offset: 2px;
-  }
 }
 /*// components */

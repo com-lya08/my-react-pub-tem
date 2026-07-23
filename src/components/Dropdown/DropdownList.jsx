@@ -2,12 +2,13 @@ import { useState } from "react";
 import Dropdown from "./Dropdown";
 import { useEffect, useRef } from "react";
 
-export default function DropdownList({ dropdowns, multi = false }) {
+export default function DropdownList({ dropdowns, type="single"}) {
 	const dropdownRef = useRef(null);
 	const [expanded, setExpanded] = useState([]);
+	const isMulti = type === "multi";
 
 	const handleToggle = (id) => {
-		if (multi) {
+		if (isMulti) {
 			setExpanded(
 				(
 					prev, // 기존 열려있는 id배열 (리액트가 넘겨주는 값) => setExpanded에 함수를 전달하면 React가 현재 상태(state)를 첫 번째 인자로 전달해 주기 때문입니다.

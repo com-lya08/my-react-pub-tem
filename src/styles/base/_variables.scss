@@ -3,36 +3,42 @@ $font-primary: "SUIT", "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial",
 $font-secondary: "Noto Sans", "Apple SD Gothic Neo", "Helvetica", "Arial", sans-serif;
 
 :root {
-	--text-size-base: 1.6rem;
-	--text-size-sm: 1.4rem;
-	--text-size-md: 1.8rem;
-	--text-size-lg: 2rem;
-	--text-size-xl: 2.4rem;
-	--text-size-xxl: 3.2rem;
-	--text-size-3xl: 4rem;
+	--font-scale: 1;
 
-	--title-size-sm: 2.6rem;
-	--title-size-md: 4rem;
-	--title-size-lg: 5rem;
-	--title-size-xl: 6rem;
+	--text-size-base: calc(1.6rem * var(--font-scale));
+	--text-size-sm: calc(1.4rem * var(--font-scale));
+	--text-size-md: calc(1.8rem * var(--font-scale));
+	--text-size-lg: calc(2rem * var(--font-scale));
+	--text-size-xl: calc(2.4rem * var(--font-scale));
+	--text-size-xxl: calc(3.2rem * var(--font-scale));
+	--text-size-3xl: calc(4rem * var(--font-scale));
+
+	--title-size-sm: calc(2.6rem * var(--font-scale));
+	--title-size-md: calc(4rem * var(--font-scale));
+	--title-size-lg: calc(5rem * var(--font-scale));
+	--title-size-xl: calc(6rem * var(--font-scale));
 
 	--header-height: 6rem;
 }
 
+[data-font-size="large"] {
+	--font-scale: 1.4;
+}
+
 @media (max-width: 768px) {
 	:root {
-		--text-size-base: 1.4rem;
-		--text-size-sm: 1.3rem;
-		--text-size-md: 1.6rem;
-		--text-size-lg: 1.8rem;
-		--text-size-xl: 1.8rem;
-		--text-size-xxl: 2rem;
-		--text-size-3xl: 2.4rem;
+		--text-size-base: calc(1.4rem * var(--font-scale));
+		--text-size-sm: calc(1.3rem * var(--font-scale));
+		--text-size-md: calc(1.6rem * var(--font-scale));
+		--text-size-lg: calc(1.8rem * var(--font-scale));
+		--text-size-xl: calc(1.8rem * var(--font-scale));
+		--text-size-xxl: calc(2rem * var(--font-scale));
+		--text-size-3xl: calc(2.4rem * var(--font-scale));
 
-		--title-size-sm: 2rem;
-		--title-size-md: 2.6rem;
-		--title-size-lg: 3.2rem;
-		--title-size-xl: 4rem;
+		--title-size-sm: calc(2rem * var(--font-scale));
+		--title-size-md: calc(2.6rem * var(--font-scale));
+		--title-size-lg: calc(3.2rem * var(--font-scale));
+		--title-size-xl: calc(4rem * var(--font-scale));
 
 		--header-height: 5rem;
 	}

@@ -1,0 +1,129 @@
+@use "../base/" as *;
+/* form */
+[class*="form-"] {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	cursor: pointer;
+
+	&:has(:focus-visible) {
+		outline: 2px solid $color-focus;
+		outline-offset: 2px;
+	}
+
+	input[type="checkbox"],
+	input[type="radio"]:focus-visible {
+		outline: none;
+	}
+}
+
+.form-switch input[type="checkbox"] {
+	appearance: none;
+	width: 4.8rem;
+	height: 2.6rem;
+	background: var(--color-gray-40);
+	border-radius: 999px;
+	position: relative;
+	cursor: pointer;
+	transition: background 0.25s ease;
+	&::before {
+		content: "";
+		width: 2rem;
+		height: 2rem;
+		background: #fff;
+		border-radius: 50%;
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		transition: transform 0.25s ease;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	}
+
+	&:checked {
+		background: $color-primary;
+
+		&::before {
+			transform: translateX(2.2rem);
+		}
+	}
+}
+
+@mixin form-checkbox($size) {
+	input[type="checkbox"] {
+		appearance: none;
+		width: calc(1.6rem * $size);
+		height: calc(1.6rem * $size);
+		background: rgba(var(--color-scheme-rvs-rgb), alpha(3));
+		border-radius: 5px;
+		position: relative;
+		transition: background 0.25s ease;
+		&::before {
+			content: "";
+			position: absolute;
+			width: calc(5px * $size);
+			height: calc(8px * $size);
+			left: calc(5px * $size);
+			top: calc(3px * $size);
+			border-right: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			transform: rotate(45deg);
+			opacity: 0.5;
+			transition: opacity 0.25s ease;
+		}
+
+		&:checked {
+			background: $color-primary;
+
+			&::before {
+				opacity: 1;
+			}
+		}
+	}
+
+	span {
+		font-size: var(--text-size-base);
+	}
+}
+
+.form-checkbox {
+	@include form-checkbox(1);
+	&.size-lg {
+		@include form-checkbox(1.2);
+		span {
+			font-size: var(--text-size-md);
+		}
+	}
+}
+
+@mixin form-radio($size) {
+	input[type="radio"] {
+		appearance: none;
+		width: calc(1.6rem * $size);
+		height: calc(1.6rem * $size);
+		background: rgba(var(--color-scheme-rvs-rgb), alpha(1));
+		border: calc(0.5rem * $size) solid rgba(var(--color-scheme-rvs-rgb), alpha(5));
+		border-radius: 50%;
+		position: relative;
+		transition:
+			border-color 0.25s ease,
+			background 0.25s ease;
+		&:checked {
+			border-color: $color-primary;
+			background: $color-white;
+		}
+	}
+	span {
+		font-size: var(--text-size-base);
+	}
+}
+
+.form-radio {
+	@include form-radio(1);
+	&.size-lg {
+		@include form-radio(1.2);
+		span {
+			font-size: var(--text-size-md);
+		}
+	}
+}

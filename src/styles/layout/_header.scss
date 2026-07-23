@@ -18,7 +18,7 @@
 	}
 	.logo {
 		width: 12rem;
-		font-size: 2rem;
+		font-size: var(--text-size-lg);
 	}
 	nav {
 		@media (max-width: 768px) {
@@ -106,14 +106,14 @@
 			width: 100%;
 		}
 		> li {
-			font-size: 1.8rem;
+			font-size: var(--text-size-md);
 			font-weight: 600;
 			& + li {
 				margin-top: 1.5rem;
 			}
 		}
 		.sub-menu {
-			font-size: 1.6rem;
+			font-size: var(--text-size-base);
 			font-weight: 500;
 			background-color: rgba(var(--color-scheme-rvs-rgb), alpha(1));
 			border-radius: 1rem;
