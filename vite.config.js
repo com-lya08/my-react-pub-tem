@@ -19,15 +19,15 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
-	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: `
-        @use "@/styles/base" as *;
-        `,
-			},
-		},
-	},
+	// css: {
+	// 	preprocessorOptions: {
+	// 		scss: {
+	// 			additionalData: `
+  //      		@use "@/styles/forward/index" as *;
+  //       `,
+	// 		},
+	// 	},
+	// },
 	test: {
 		projects: [
 			{
