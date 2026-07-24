@@ -1,4 +1,4 @@
-@use "../base/" as *;
+@use "../forward/index" as *;
 /* button */
 .btn-wrap {
 	@include flex-center();

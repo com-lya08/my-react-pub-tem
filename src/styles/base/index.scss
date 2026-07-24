@@ -1,6 +1,4 @@
 // base/index.scss
-
-@forward "./variables";
-@forward "./color";
-@forward "./font";
-@forward "./mixins";
+@use "./reset";
+@use "./font";
+@use "./variables";

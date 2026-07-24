@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // import heroImg from "./assets/hero.png";
 
 import "./App.css";
-import "./styles/reset.scss";
+import "./styles/base.scss";
 import "./styles/style.scss";
 // import Button from "./components/Button/Button";//css import
 // import "krds-react/dist/index.css";
@@ -112,6 +112,14 @@ function App() {
 							<h2 className="title-md">template</h2>
 						</div>
 						<div className="content-body">
+							<section className="section">
+								<div className="sec-header">
+									<h3 className="title-sm font-secondary">글씨설정</h3>
+								</div>
+								<div className="sec-body">
+									<FontSizeSetRadioBox />
+								</div>
+							</section>
 							<section className="section">
 								<div className="sec-header">
 									<h3 className="title-sm font-secondary">탭</h3>
@@ -264,8 +272,12 @@ function App() {
 								</div>
 								<div className="sec-body">
 									<div className="flex flex-start">
-									<Checkbox title="checkbox test1" name="checkbox01" id="checkbox01">checkbox test1</Checkbox>
-									<Checkbox title="checkbox test3" className="size-lg" name="checkbox03" id="checkbox03">checkbox test3</Checkbox>
+										<Checkbox title="checkbox test1" name="checkbox01" id="checkbox01">
+											checkbox test1
+										</Checkbox>
+										<Checkbox title="checkbox test3" className="size-lg" name="checkbox03" id="checkbox03">
+											checkbox test3
+										</Checkbox>
 									</div>
 								</div>
 							</section>
@@ -276,18 +288,13 @@ function App() {
 								</div>
 								<div className="sec-body">
 									<div className="flex flex-start">
-									<RadioBox title="radiobox test1" name="radiobox" id="radiobox01">radio test1</RadioBox>
-									<RadioBox title="radiobox test3" className="size-lg" name="radiobox" id="checkbox03">radio test3</RadioBox>
+										<RadioBox title="radiobox test1" name="radiobox" id="radiobox01">
+											radio test1
+										</RadioBox>
+										<RadioBox title="radiobox test3" className="size-lg" name="radiobox" id="checkbox03">
+											radio test3
+										</RadioBox>
 									</div>
-								</div>
-							</section>
-
-								<section className="section">
-								<div className="sec-header">
-									<h3 className="title-sm font-secondary">글씨설정</h3>
-								</div>
-								<div className="sec-body">
-									<FontSizeSetRadioBox/>
 								</div>
 							</section>
 

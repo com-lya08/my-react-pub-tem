@@ -1,4 +1,4 @@
-@use "../base/" as *;
+@use "../forward/index" as *;
 html {
 	font-size: 62.5%; // 10px
 	-webkit-text-size-adjust: 100%;
@@ -121,4 +121,8 @@ body {
 		border-radius: 1rem;
 		background-color: rgba(var(--color-scheme-rvs-rgb), alpha(2));
 	}
+}
+
+.w-full {
+	width: 100% !important;
 }
